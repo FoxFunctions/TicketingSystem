@@ -19,10 +19,11 @@
     <p *ngIf="focusTicket.isOpen !== true">Ticket status: Resolved</p>
     <p *ngIf="focusTicket.isOpen === true">Ticket status: Open</p>
     <p *ngIf="focusTicket.isOpen !== true">This ticket was resolved by {{focusTicket.resolvedUserId}}</p>
+    <p *ngIf="!focusTicket.isOpen">Resolution steps: {{focusTicket.resolution}}</p>
     {{currentUser}}
     <span *ngIf="focusTicket.isOpen">
         
-        Open ticket <button *ngIf="currentUser !== ''" (click)="swapTicketOpenStatus(focusTicket.id, focusTicket, false)">Close ticket</button>
+       
     </span>
 <span *ngIf="!focusTicket.isOpen">
         Resolved by: {{focusTicket.resolvedUserId}} <button *ngIf="currentUser !== ''" (click)="swapTicketOpenStatus(focusTicket.id, focusTicket, true)">Reopen ticket</button>
@@ -30,3 +31,7 @@
 </div>
 
 <ng-template #notLoggedIn>Please login to view ticket details.</ng-template>
+    <p *ngIf="focusTicket.isOpen">Please enter your resolution steps.</p>
+    <input *ngIf="focusTicket.isOpen" type ="text" [(ngModel)]="resolution">
+    <button *ngIf="focusTicket.isOpen" (click)="updateResolution(getId(),focusTicket)">Resolve</button>
+</div>
